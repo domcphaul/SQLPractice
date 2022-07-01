@@ -1,0 +1,52 @@
+/*SELECT * 
+FROM users;
+SELECT * 
+FROM progress;*/
+
+/*2*/
+    /*Top 25 Schools*/
+        SELECT * 
+        FROM users
+        WHERE email_domain LIKE '%.edu'
+        ORDER BY 2 ASC
+        LIMIT 25;
+
+    /*How many NY .edu learners
+        SELECT COUNT(*)
+        FROM users
+        WHERE email_domain LIKE '%.edu'
+        AND city = 'New York';*/
+
+    /*How many Codecademy learners are mobile
+        SELECT COUNT(*)
+        FROM users 
+        WHERE mobile_app IS NOT NULL;*/
+
+/*3*/
+        SELECT COUNT(sign_up_at), strftime('%H', sign_up_at)
+        FROM users
+        GROUP BY 2
+        LIMIT 24;
+
+/*4*/
+    /*Difference in course selection*/
+        SELECT users.email_domain, progress.learn_java, COUNT(*)
+        FROM users 
+        LEFT JOIN progress 
+        ON users.email_domain = progress.learn_java 
+        GROUP BY 1
+        LIMIT 5;
+
+    /*Courses the NYers Take*/
+        SELECT *
+        FROM users
+        LEFT JOIN progress 
+        ON users.user_id = progress.user_id
+        WHERE city = 'New York';
+
+    /*Courses ChiTowners Take*/
+        SELECT *
+        FROM users
+        LEFT JOIN progress 
+        ON users.user_id = progress.user_id
+        WHERE city = 'Chicago';
